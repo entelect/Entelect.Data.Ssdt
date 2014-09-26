@@ -4,12 +4,6 @@ namespace Entelect.Data.Ssdt
 {
     public class Publisher
     {
-
-        public void Publish()
-        {
-            
-        }
-
         internal protected virtual string GetProgramfilesPath()
         {
             var x86Path = Environment.GetEnvironmentVariable("programfiles(x86)");
