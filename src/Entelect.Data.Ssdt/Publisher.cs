@@ -12,6 +12,7 @@ namespace Entelect.Data.Ssdt
 
         public Publisher(string dacpacPath, string publishFilePath)
         {
+            
             DacpacPath = dacpacPath;
             PublishFilePath = publishFilePath;
         }
