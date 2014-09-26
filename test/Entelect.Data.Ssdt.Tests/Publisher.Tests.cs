@@ -13,7 +13,7 @@ namespace Entelect.Data.Ssdt.Tests
         [Test]
         public void GetProgramfilesPath()
         {
-            var publisher = new Publisher();
+            var publisher = new Publisher(null,null);
             var programFilesPath = publisher.GetProgramfilesPath();
             Assert.False(string.IsNullOrWhiteSpace(programFilesPath));
         }
@@ -22,52 +22,48 @@ namespace Entelect.Data.Ssdt.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void DacpacPathCannotBeNull()
         {
-            var publisher = new Publisher();
-            const string dacpacPath = null;
-            publisher.Publish(dacpacPath, ExistingPublishFilePath);
+            var publisher = new Publisher(null, ExistingPublishFilePath);
+            publisher.Publish();
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void PublishFilePathCannotBeNull()
         {
-            var publisher = new Publisher();
-            const string publishFilePath = null;
-            publisher.Publish(ExistingDacpacPath, publishFilePath);
+            var publisher = new Publisher(ExistingDacpacPath, null);
+            publisher.Publish();
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void DacpacPathCannotBeWhitespace()
         {
-            var publisher = new Publisher();
-            publisher.Publish(string.Empty, ExistingPublishFilePath);
+            var publisher = new Publisher(string.Empty, ExistingPublishFilePath);
+            publisher.Publish();
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void PublishFilePathCannotBeWhitespace()
         {
-            var publisher = new Publisher();
-            publisher.Publish(ExistingDacpacPath, string.Empty);
+            var publisher = new Publisher(ExistingDacpacPath, string.Empty);
+            publisher.Publish();
         }
 
         [Test]
         public void CheckSqlpackageExePathCorrect()
         {
-            var publisher = new Publisher();
+            var publisher = new Publisher(null, null);
             var pathToSqlpackageExe = publisher.GetPathToSqlpackageExe();
             Assert.False(string.IsNullOrWhiteSpace(pathToSqlpackageExe));
             Assert.True(File.Exists(pathToSqlpackageExe), string.Format("SqlpackageExe not found at path: {0}", pathToSqlpackageExe));
         }
 
-
         [Test]
         public void AbsoluteDacpacAndPublishFilePath()
         {
-            var publisher = new Publisher();
-
-            publisher.Publish(ExistingDacpacPath, ExistingPublishFilePath);
+            var publisher = new Publisher(ExistingDacpacPath, ExistingPublishFilePath);
+            publisher.Publish();
         }
     }
 }

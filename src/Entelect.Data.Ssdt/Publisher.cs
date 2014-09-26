@@ -1,24 +1,57 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace Entelect.Data.Ssdt
 {
     public class Publisher
     {
+        protected string DacpacPath;
+        protected string PublishFilePath;
+
+        public Publisher(string dacpacPath, string publishFilePath)
+        {
+            DacpacPath = dacpacPath;
+            PublishFilePath = publishFilePath;
+        }
+
         /// <summary>
         /// Publishes the db using the supplied path to the .dacpac file and path to the .xml publish file
         /// </summary>
-        /// <param name="dacpacPath"></param>
-        /// <param name="publishFilePath"></param>
-        public void Publish(string dacpacPath, string publishFilePath)
+        public void Publish()
         {
             var pathToSqlpackageExe = GetPathToSqlpackageExe();
             if (!File.Exists(pathToSqlpackageExe))
             {
                 throw new FileNotFoundException(string.Format("Sqlpackage.exe not found at path {0}, SSDT must be installed", pathToSqlpackageExe), "Sqlpackage.exe");
             }
-            ValidateInputs(dacpacPath, publishFilePath);
-            throw new NotImplementedException();
+            ValidatePaths();
+            var commandString = GetPublishCommandString(pathToSqlpackageExe);
+
+            var startInfo = new ProcessStartInfo
+            {
+                WindowStyle = ProcessWindowStyle.Minimized,
+                ErrorDialog = true,
+                LoadUserProfile = true,
+                CreateNoWindow = false,
+                UseShellExecute = false,
+                FileName = "cmd.exe",
+                Arguments = commandString
+            };
+            var process = new Process {StartInfo = startInfo};
+            process.Start();
+            process.WaitForExit();
+        }
+
+        protected string GetPublishCommandString(string pathToSqlpackageExe)
+        {
+            var stringBuilder = new StringBuilder("/C \"");
+            stringBuilder.Append(pathToSqlpackageExe);
+            stringBuilder.Append("\" /a:publish ");
+            stringBuilder.AppendFormat(@"/SourceFile:{0} ", DacpacPath);
+            stringBuilder.AppendFormat(@"/Profile:{0}", PublishFilePath);
+            return stringBuilder.ToString();
         }
 
         internal protected virtual string GetProgramfilesPath()
@@ -42,23 +75,23 @@ namespace Entelect.Data.Ssdt
             return string.Format(@"{0}\Microsoft SQL Server\110\DAC\bin\sqlpackage.exe", programFilesPath);
         }
 
-        private static void ValidateInputs(string dacpacPath, string publishFilePath)
+        private void ValidatePaths()
         {
-            if (string.IsNullOrWhiteSpace(dacpacPath))
+            if (string.IsNullOrWhiteSpace(DacpacPath))
             {
-                throw new ArgumentNullException("dacpacPath", "Dacpac Path cannot be null");
+                throw new ArgumentNullException("DacpacPath", "Dacpac Path cannot be null");
             }
-            if (!File.Exists(dacpacPath))
+            if (!File.Exists(DacpacPath))
             {
-                throw new FileNotFoundException(string.Format("dacpac file not found at path: {0}", dacpacPath));
+                throw new FileNotFoundException(string.Format("dacpac file not found at path: {0}", DacpacPath));
             }
-            if (string.IsNullOrWhiteSpace(publishFilePath))
+            if (string.IsNullOrWhiteSpace(PublishFilePath))
             {
-                throw new ArgumentNullException("publishFilePath", "Publish File Path cannot be null");
+                throw new ArgumentNullException("PublishFilePath", "Publish File Path cannot be null");
             }
-            if (!File.Exists(publishFilePath))
+            if (!File.Exists(PublishFilePath))
             {
-                throw new FileNotFoundException(string.Format("Publish file path file not found at path: {0}", publishFilePath));
+                throw new FileNotFoundException(string.Format("Publish file path file not found at path: {0}", PublishFilePath));
             }
         }
     }
