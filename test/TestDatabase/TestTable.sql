@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[TestTable]
+(
+	[TestTableId] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [TestValue] NVARCHAR(255) NOT NULL
+)
