@@ -7,6 +7,9 @@ namespace Entelect.Data.Ssdt.Tests
     [TestFixture]
     public class PublisherTests
     {
+        const string ExistingDacpacPath = @"C:\Development\EntelectOpenSorceLibrary\Entelect.Data.Ssdt\test\TestDatabase\bin\Debug\TestDatabase.dacpac";
+        const string ExistingPublishFilePath = @"C:\Development\EntelectOpenSorceLibrary\Entelect.Data.Ssdt\test\TestDatabase\TestDatabase.LocalDb.publish.xml";
+
         [Test]
         public void GetProgramfilesPath()
         {
@@ -21,8 +24,7 @@ namespace Entelect.Data.Ssdt.Tests
         {
             var publisher = new Publisher();
             const string dacpacPath = null;
-            const string publishFilePath = "asd";
-            publisher.Publish(dacpacPath, publishFilePath);
+            publisher.Publish(dacpacPath, ExistingPublishFilePath);
         }
 
         [Test]
@@ -30,9 +32,8 @@ namespace Entelect.Data.Ssdt.Tests
         public void PublishFilePathCannotBeNull()
         {
             var publisher = new Publisher();
-            const string dacpacPath = "asd";
             const string publishFilePath = null;
-            publisher.Publish(dacpacPath, publishFilePath);
+            publisher.Publish(ExistingDacpacPath, publishFilePath);
         }
 
         [Test]
@@ -40,8 +41,7 @@ namespace Entelect.Data.Ssdt.Tests
         public void DacpacPathCannotBeWhitespace()
         {
             var publisher = new Publisher();
-            const string publishFilePath = "asd";
-            publisher.Publish(string.Empty, publishFilePath);
+            publisher.Publish(string.Empty, ExistingPublishFilePath);
         }
 
         [Test]
@@ -49,8 +49,7 @@ namespace Entelect.Data.Ssdt.Tests
         public void PublishFilePathCannotBeWhitespace()
         {
             var publisher = new Publisher();
-            const string dacpacPath = "asd";
-            publisher.Publish(dacpacPath, string.Empty);
+            publisher.Publish(ExistingDacpacPath, string.Empty);
         }
 
         [Test]
@@ -67,9 +66,8 @@ namespace Entelect.Data.Ssdt.Tests
         public void AbsoluteDacpacAndPublishFilePath()
         {
             var publisher = new Publisher();
-            const string dacpacPath = @"C:\Development\EntelectOpenSorceLibrary\Entelect.Data.Ssdt\test\TestDatabase\bin\Debug";
-            const string publishFilePath = @"C:\Development\EntelectOpenSorceLibrary\Entelect.Data.Ssdt\test\TestDatabase\TestDatabase.LocalDb.publish.xml";
-            publisher.Publish(dacpacPath, publishFilePath);
+
+            publisher.Publish(ExistingDacpacPath, ExistingPublishFilePath);
         }
     }
 }

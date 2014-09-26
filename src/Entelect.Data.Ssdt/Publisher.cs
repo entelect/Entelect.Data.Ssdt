@@ -12,12 +12,12 @@ namespace Entelect.Data.Ssdt
         /// <param name="publishFilePath"></param>
         public void Publish(string dacpacPath, string publishFilePath)
         {
-            ValidateInputs(dacpacPath, publishFilePath);
             var pathToSqlpackageExe = GetPathToSqlpackageExe();
             if (!File.Exists(pathToSqlpackageExe))
             {
                 throw new FileNotFoundException(string.Format("Sqlpackage.exe not found at path {0}, SSDT must be installed", pathToSqlpackageExe), "Sqlpackage.exe");
             }
+            ValidateInputs(dacpacPath, publishFilePath);
             throw new NotImplementedException();
         }
 
@@ -48,9 +48,17 @@ namespace Entelect.Data.Ssdt
             {
                 throw new ArgumentNullException("dacpacPath", "Dacpac Path cannot be null");
             }
+            if (!File.Exists(dacpacPath))
+            {
+                throw new FileNotFoundException(string.Format("dacpac file not found at path: {0}", dacpacPath));
+            }
             if (string.IsNullOrWhiteSpace(publishFilePath))
             {
                 throw new ArgumentNullException("publishFilePath", "Publish File Path cannot be null");
+            }
+            if (!File.Exists(publishFilePath))
+            {
+                throw new FileNotFoundException(string.Format("Publish file path file not found at path: {0}", publishFilePath));
             }
         }
     }
