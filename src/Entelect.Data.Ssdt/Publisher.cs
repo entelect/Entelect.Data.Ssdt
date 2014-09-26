@@ -7,9 +7,20 @@ namespace Entelect.Data.Ssdt
 {
     public class Publisher
     {
+        /// <summary>
+        /// The path to the .dacpac file
+        /// </summary>
         protected string DacpacPath;
+        /// <summary>
+        /// The path to the SSDT XML publish file, in order to create one, right click on your database project, click publish... set everything up and then click create profile
+        /// </summary>
         protected string PublishFilePath;
 
+        /// <summary>
+        /// Creates the publisher instance
+        /// </summary>
+        /// <param name="dacpacPath">The path to the .dacpac file</param>
+        /// <param name="publishFilePath">The path to the SSDT XML publish file, in order to create one, right click on your database project, click publish... set everything up and then click create profile</param>
         public Publisher(string dacpacPath, string publishFilePath)
         {
             
@@ -45,7 +56,12 @@ namespace Entelect.Data.Ssdt
             process.WaitForExit();
         }
 
-        protected string GetPublishCommandString(string pathToSqlpackageExe)
+        /// <summary>
+        /// Gets the command string to run in the process
+        /// </summary>
+        /// <param name="pathToSqlpackageExe"></param>
+        /// <returns></returns>
+        internal protected string GetPublishCommandString(string pathToSqlpackageExe)
         {
             var stringBuilder = new StringBuilder("/C \"");
             stringBuilder.Append(pathToSqlpackageExe);
@@ -55,6 +71,10 @@ namespace Entelect.Data.Ssdt
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Gets the path to the computers program files path where SSDT is installed
+        /// </summary>
+        /// <returns></returns>
         internal protected virtual string GetProgramfilesPath()
         {
             var x86Path = Environment.GetEnvironmentVariable("programfiles(x86)");
@@ -70,13 +90,20 @@ namespace Entelect.Data.Ssdt
             throw new ArgumentException("Unable to determin path to the program files folder, you must set either the \"programfiles(x86)\" or \"programfiles\" environment variable");
         }
 
-        protected internal virtual string GetPathToSqlpackageExe()
+        /// <summary>
+        /// Gets the path to SSDT
+        /// </summary>
+        /// <returns></returns>
+        internal protected virtual string GetPathToSqlpackageExe()
         {
             var programFilesPath = GetProgramfilesPath();
             return string.Format(@"{0}\Microsoft SQL Server\110\DAC\bin\sqlpackage.exe", programFilesPath);
         }
 
-        private void ValidatePaths()
+        /// <summary>
+        /// Ensures that the paths passed in are valid
+        /// </summary>
+        internal protected virtual void ValidatePaths()
         {
             if (string.IsNullOrWhiteSpace(DacpacPath))
             {
