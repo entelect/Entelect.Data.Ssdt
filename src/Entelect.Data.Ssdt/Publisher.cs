@@ -20,7 +20,10 @@ namespace Entelect.Data.Ssdt
         /// Creates the publisher instance
         /// </summary>
         /// <param name="dacpacPath">The path to the .dacpac file</param>
-        /// <param name="publishFilePath">The path to the SSDT XML publish file, in order to create one, right click on your database project, click publish... set everything up and then click create profile</param>
+        /// <param name="publishFilePath">
+        /// The path to the SSDT XML publish file, in order to create one, right click on your database project, click publish...
+        /// set everything up and then click create profile
+        /// </param>
         public Publisher(string dacpacPath, string publishFilePath)
         {
             
