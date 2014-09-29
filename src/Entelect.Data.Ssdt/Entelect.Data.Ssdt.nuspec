@@ -8,7 +8,7 @@
     <owners>Entelect</owners>
     <projectUrl>https://github.com/entelect/Entelect.Data.Ssdt</projectUrl>
     <iconUrl>https://encentivize.blob.core.windows.net/2-cms/entelectlogo.jpg</iconUrl>
-    <licenseUrl>https://github.com/Sereph/Entelect/blob/master/License.txt</licenseUrl>
+    <licenseUrl>https://github.com/entelect/Entelect.Data.Ssdt/blob/master/License.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright © Entelect 2011</copyright>
