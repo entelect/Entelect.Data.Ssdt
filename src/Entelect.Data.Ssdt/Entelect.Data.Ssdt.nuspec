@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>Entelect.Data.Ssdt</title>
+    <authors>$author$</authors>
+    <owners>Entelect</owners>
+    <projectUrl>https://github.com/entelect/Entelect.Data.Ssdt</projectUrl>
+    <iconUrl>https://encentivize.blob.core.windows.net/2-cms/entelectlogo.jpg</iconUrl>
+    <licenseUrl>https://github.com/Sereph/Entelect/blob/master/License.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright © Entelect 2011</copyright>
+    <tags>Entelect SSDT</tags>
+  </metadata>
+</package>
