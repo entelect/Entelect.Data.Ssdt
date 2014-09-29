@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Entelect.Data.Ssdt")]
 [assembly: AssemblyCopyright("Copyright © Entelect Software 2014")]
 [assembly: AssemblyTrademark("Entelect")]
-[assembly: AssemblyCulture("EN-ZA")]
+[assembly: AssemblyCulture("")]
 [assembly: InternalsVisibleTo("Entelect.Data.Ssdt.Tests")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
