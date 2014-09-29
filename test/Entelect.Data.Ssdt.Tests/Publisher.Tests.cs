@@ -7,8 +7,13 @@ namespace Entelect.Data.Ssdt.Tests
     [TestFixture]
     public class PublisherTests
     {
+#if DEBUG
         const string AbsoluteExistingDacpacPath = @"C:\Development\EntelectOpenSorceLibrary\Entelect.Data.Ssdt\test\TestDatabase\bin\Release\TestDatabase.dacpac";
         const string AbsoluteExistingPublishFilePath = @"C:\Development\EntelectOpenSorceLibrary\Entelect.Data.Ssdt\test\TestDatabase\TestDatabase.LocalDb.publish.xml";
+#else
+        const string AbsoluteExistingDacpacPath = @"D:\Builds\Entelect.Data.Ssdt\test\TestDatabase\bin\Release\TestDatabase.dacpac";
+        const string AbsoluteExistingPublishFilePath = @"D:\Builds\Entelect.Data.Ssdt\test\TestDatabase\TestDatabase.LocalDb.publish.xml";
+#endif
         const string RelativeExistingDacpacPath = @"..\..\..\TestDatabase\bin\Release\TestDatabase.dacpac";
         const string RelativeExistingPublishFilePath = @"..\..\..\TestDatabase\TestDatabase.LocalDb.publish.xml";
 
